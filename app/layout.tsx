@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter  as FontSans} from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import "./globals.css";
+import Nav from "@/components/shared/nav";
 
 
 export const fontSans = FontSans({
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body 
+      <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
@@ -31,8 +31,8 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          disableTransitionOnChange
         >
+          <Nav />
           {children}
         </ThemeProvider>
       </body>
