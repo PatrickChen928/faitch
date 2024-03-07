@@ -1,6 +1,5 @@
-import { ID } from "appwrite";
 import { IUser } from "@/types";
-import { account } from "./config";
+import { account, ID } from "./config";
 
 export const createUserAccount = async (user: IUser) => {
   try {
