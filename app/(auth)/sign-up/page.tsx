@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -20,6 +21,7 @@ import { createUserAccount } from '@/lib/appwrite/api'
 import { useState } from 'react'
 
 export default function SignUp() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
@@ -36,6 +38,7 @@ export default function SignUp() {
     setIsLoading(true)
     await createUserAccount(values)
     setIsLoading(false)
+    router.push('/sign-in')
   }
   return (
     <div className="flex">
