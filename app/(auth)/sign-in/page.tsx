@@ -15,9 +15,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { SignInValidation } from "@/lib/validation"
 import Loading from "@/components/shared/Loading"
+import Link from "next/link"
 
 export default function SignIn() {
-  const isLoading = true
+  const isLoading = false
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInValidation>>({
     resolver: zodResolver(SignInValidation),
@@ -70,9 +71,12 @@ export default function SignIn() {
                 )}
               />
               <Button type="submit" className="shad-button_primary">{
-                isLoading ? <Loading text="Loading..." /> : "Sign In"
+                isLoading ? <Loading text="Loading..." /> : "Log In"
               }</Button>
             </form>
+            <p className="small-regular text-light-2 text-center mt-2">
+              Don't have an account? <Link href="/sign-up" className="text-primary-500 small-semibold ml-1">Sign up</Link>
+            </p>
           </Form>
         </div>
       </div>

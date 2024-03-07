@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -102,6 +103,9 @@ export default function SignUp() {
                 isLoading ? <Loading text="Loading..." /> : "Sign up"
               }</Button>
             </form>
+            <p className="small-regular text-light-2 text-center mt-2">
+              Already have an account? <Link href="/sign-in" className="text-primary-500 small-semibold ml-1">Log in</Link>
+            </p>
           </Form>
         </div>
       </div>
