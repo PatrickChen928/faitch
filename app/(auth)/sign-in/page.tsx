@@ -16,9 +16,10 @@ import { Input } from "@/components/ui/input"
 import { SignInValidation } from "@/lib/validation"
 import Loading from "@/components/shared/Loading"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function SignIn() {
-  const isLoading = false
+  const [isLoading, setIsLoading] = useState(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInValidation>>({
     resolver: zodResolver(SignInValidation),
@@ -29,10 +30,16 @@ export default function SignIn() {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignInValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof SignInValidation>) {
+    setIsLoading(true)
+    await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+    setIsLoading(false)
   }
   return (
     <div className="flex">
