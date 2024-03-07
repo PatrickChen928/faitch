@@ -16,25 +16,26 @@ import {
 import { Input } from "@/components/ui/input"
 import { SignUpValidation } from "@/lib/validation"
 import Loading from "@/components/shared/Loading"
+import { createUserAccount } from '@/lib/appwrite/api'
+import { useState } from 'react'
 
 export default function SignUp() {
-  const isLoading = true
+  const [isLoading, setIsLoading] = useState(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
     resolver: zodResolver(SignUpValidation),
     defaultValues: {
       name: "",
-      username: "",
       email: "",
       password: "",
     },
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof SignUpValidation>) {
+    setIsLoading(true)
+    await createUserAccount(values)
+    setIsLoading(false)
   }
   return (
     <div className="flex">
@@ -53,19 +54,6 @@ export default function SignUp() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input type="text" className="shad-input" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input type="text" className="shad-input" {...field} />
                     </FormControl>
