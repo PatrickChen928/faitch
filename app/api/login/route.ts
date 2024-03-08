@@ -10,5 +10,7 @@ export async function POST(req: Request) {
     maxAge: 60 * 60 * 24 * 7, // One week
     path: '/',
   })
+
+  console.log('session', await account.get())
   return new Response('Success', { status: 200 })
 }

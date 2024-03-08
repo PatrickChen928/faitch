@@ -18,8 +18,11 @@ import { SignInValidation } from "@/lib/validation"
 import Loading from "@/components/Loading"
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { account } from "@/lib/appwrite/config"
 
 export default function SignIn() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInValidation>>({
@@ -33,13 +36,15 @@ export default function SignIn() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignInValidation>) {
     setIsLoading(true)
-    await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
+    const session = await account.createEmailSession(values.email, values.password);
+    // await fetch("/api/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(values),
+    // })
+    router.push("/")
     setIsLoading(false)
   }
   return (
