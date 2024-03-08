@@ -3,6 +3,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SignInValidation } from "@/lib/validation"
-import Loading from "@/components/shared/Loading"
+import Loading from "@/components/Loading"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -47,7 +48,7 @@ export default function SignIn() {
         <div className="sm:w-420 flex justify-center items-center flex-col py-10">
           <Form {...form}>
             <div className=" flex-center flex-col">
-              <img src="/assets/vercel.svg" alt="logo" />
+              <Image src="/next.svg" width={40} height={40} alt="logo" />
               <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Welcome to Faitch!</h2>
             </div>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
@@ -87,7 +88,9 @@ export default function SignIn() {
           </Form>
         </div>
       </div>
-      <img src="/assets/sign-in-bg.jpg" alt="" className="hidden xl:block h-screen w-1/2 object-cover bg-no-repeat" />
+      <div className="relative hidden xl:block h-screen w-1/2">
+        <Image src="/assets/sign-in-bg.jpg" fill alt="" className="object-cover bg-no-repeat" />
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -16,7 +17,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SignUpValidation } from "@/lib/validation"
-import Loading from "@/components/shared/Loading"
+import Loading from "@/components/Loading"
 import { createUserAccount } from '@/lib/appwrite/api'
 import { useState } from 'react'
 
@@ -100,7 +101,9 @@ export default function SignUp() {
           </Form>
         </div>
       </div>
-      <img src="/assets/sign-in-bg.jpg" alt="" className="hidden xl:block h-screen w-1/2 object-cover bg-no-repeat" />
+      <div className="relative hidden xl:block h-screen w-1/2">
+        <Image src="/assets/sign-in-bg.jpg" fill alt="" className="object-cover bg-no-repeat" />
+      </div>
     </div>
   );
 }
