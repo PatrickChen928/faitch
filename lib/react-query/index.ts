@@ -5,7 +5,7 @@ import {
   useQueryClient,
   useInfiniteQuery,
 } from "@tanstack/react-query";
-import { createUserAccount, getCurrentUser } from "../appwrite/api";
+import { createUserAccount, getCurrentUser, logout } from "../appwrite/api";
 import { QUERY_KEYS } from "./queryKeys";
 
 export const useCreateUserAccount = () => {
@@ -20,3 +20,10 @@ export const useGetCurrentUser = () => {
     queryFn: getCurrentUser,
   });
 };
+
+export const useLogout = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.LOGOUT],
+    queryFn: logout,
+  });
+}

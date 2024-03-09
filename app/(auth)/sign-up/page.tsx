@@ -20,6 +20,7 @@ import { SignUpValidation } from "@/lib/validation"
 import Loading from "@/components/Loading"
 import { createUserAccount } from '@/lib/appwrite/api'
 import { useState } from 'react'
+import Logo from '@/components/Logo'
 
 export default function SignUp() {
   const router = useRouter()
@@ -42,12 +43,12 @@ export default function SignUp() {
     router.push('/sign-in')
   }
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <div className="flex-1 flex justify-center items-center">
         <div className="sm:w-420 flex justify-center items-center flex-col py-10">
           <Form {...form}>
             <div className=" flex-center flex-col">
-              <img src="/assets/vercel.svg" alt="logo" />
+              <Logo />
               <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
               <p className="text-light-3 small-medium md:base-regular">To use Faitch enter your details</p>
             </div>

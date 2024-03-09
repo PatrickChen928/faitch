@@ -20,6 +20,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { account } from "@/lib/appwrite/config"
+import Logo from "@/components/Logo"
 
 export default function SignIn() {
   const router = useRouter()
@@ -36,24 +37,17 @@ export default function SignIn() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignInValidation>) {
     setIsLoading(true)
-    const session = await account.createEmailSession(values.email, values.password);
-    // await fetch("/api/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(values),
-    // })
+    await account.createEmailSession(values.email, values.password);
     router.push("/")
     setIsLoading(false)
   }
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <div className="flex-1 flex justify-center items-center">
         <div className="sm:w-420 flex justify-center items-center flex-col py-10">
           <Form {...form}>
             <div className=" flex-center flex-col">
-              <Image src="/next.svg" width={40} height={40} alt="logo" />
+              <Logo />
               <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Welcome to Faitch!</h2>
             </div>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
