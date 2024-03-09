@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { SignUpValidation } from "@/lib/validation"
 import Loading from "@/components/Loading"
-import { createUserAccount } from '@/lib/appwrite/api'
+import { createUserAccount } from '@/lib/appwrite/user-service'
 import { useState } from 'react'
 import Logo from '@/components/Logo'
 

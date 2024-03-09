@@ -33,7 +33,7 @@ export const createUserAccount = async (user: IUser) => {
 
     if (!newAccount) throw Error;
 
-    const avatarUrl = avatars.getInitials(user.name);
+    const avatarUrl = avatars.getInitials(user.name, 512, 512, "#274A78");
 
     const newUser = await saveUserToDB({
       accountId: newAccount.$id,

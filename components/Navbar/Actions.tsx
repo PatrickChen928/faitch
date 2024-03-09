@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import ThemeBtn from "../ThemeBtn"
-import { logout } from "@/lib/appwrite/api"
+import { logout } from "@/lib/appwrite/user-service"
 
 
 export default function Actions() {
