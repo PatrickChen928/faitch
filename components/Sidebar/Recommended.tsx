@@ -1,7 +1,7 @@
 'use client'
 import { useSidebar } from "@/store/user-sidebar";
 import { IUser } from "@/types";
-import UserItem from "./UserItem";
+import UserItem, { UserItemSkeleton } from "./UserItem";
 
 interface RecommendedProps {
   data: IUser[]
@@ -37,5 +37,17 @@ export default function Recommended({
         }
       </ul>
     </div>
+  )
+}
+
+export const RecommendedSkeleton = () => {
+  return (
+    <ul className="px-2">
+      {
+        Array.from({ length: 3 }).map((_, i) => (
+          <UserItemSkeleton key={i} />
+        ))
+      }
+    </ul>
   )
 }

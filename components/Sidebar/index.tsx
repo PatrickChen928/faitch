@@ -1,5 +1,5 @@
 import { getRecommended } from "@/lib/appwrite/recommended-service";
-import Recommended from "./Recommended";
+import Recommended, { RecommendedSkeleton } from "./Recommended";
 import Toggle from "./Toggle";
 import Wrapper from "./Wrapper";
 
@@ -12,5 +12,13 @@ export default async function Sidebar() {
         <Recommended data={recommended} />
       </div>
     </Wrapper>
+  )
+}
+
+export const SidebarSkeleton = () => {
+  return (
+    <aside className="fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r z-50">
+      <RecommendedSkeleton />
+    </aside>
   )
 }

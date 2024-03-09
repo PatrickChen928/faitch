@@ -53,3 +53,18 @@ export default function UserAvatar({
     </div>
   )
 }
+
+interface UserAvatarSkeletonProps extends VariantProps<typeof avatarSizes> { }
+
+export const UserAvatarSkeleton = ({
+  size
+}: UserAvatarSkeletonProps) => {
+  return (
+    <Skeleton
+      className={cn(
+        "rounded-full",
+        avatarSizes({ size })
+      )}
+    />
+  )
+}
