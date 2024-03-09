@@ -9,7 +9,7 @@ export default function Wrapper({ children }: {
   const { isOpen } = useSidebar((state) => state)
   return (
     <aside className={cn(
-      "fixed left-0 flex w-60 flex-col h-full bg-secondary border-r z-50",
+      "fixed left-0 flex w-60 flex-col h-full bg-sidebar border-r z-50",
       !isOpen && "w-[70px]"
     )}>
       {children}

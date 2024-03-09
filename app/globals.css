@@ -2,10 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 240 7% 97%;
     --foreground: 222.2 84% 4.9%;
+
+    --sidebar: 240 7% 94%;
+    --sidebar-foreground: 222.2 84% 4.9%;
+
+    --nav: 0 0% 100%;
+    --nav-foreground: 210 40% 98%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -39,8 +54,15 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 240 7% 6%;
     --foreground: 210 40% 98%;
+
+    --sidebar: 240 6% 13%;
+    --sidebar-foreground: 210 40% 98%;
+
+    --nav: 240 6% 10%;
+    --nav-foreground: 210 40% 98%;
+
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -62,9 +84,6 @@
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
-    --nav: #252731;
-    --nav-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;

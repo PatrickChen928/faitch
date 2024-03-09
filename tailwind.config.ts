@@ -41,8 +41,12 @@ const config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         nav: {
-          DEFAULT: "var(--nav)",
+          DEFAULT: "hsl(var(--nav))",
           foreground: "hsl(var(--nav-foreground))",
+        },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar))",
+          foreground: "hsl(var(--sidebar-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
