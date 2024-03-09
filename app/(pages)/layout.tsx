@@ -1,4 +1,6 @@
-import Navbar from "@/components/Navbar/Navbar";
+import Container from "@/components/Container";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 export default function Page({ children }: {
   children: React.ReactNode
@@ -7,7 +9,12 @@ export default function Page({ children }: {
   return (
     <div>
       <Navbar />
-      {children}
+      <div className="flex h-full pt-20">
+        <Sidebar />
+        <Container>
+          {children}
+        </Container>
+      </div>
     </div>
   );
 }
