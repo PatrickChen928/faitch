@@ -10,12 +10,14 @@ import UserAvatar from "../UserAvatar"
 import LiveBadge from "../LiveBadge"
 
 interface UserItemProps {
+  id: string
   name: string
   imageUrl: string
   isLive?: boolean
 }
 
 export default function UserItem({
+  id,
   name,
   imageUrl,
   isLive

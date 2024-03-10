@@ -49,6 +49,14 @@ export const createUserAccount = async (user: IUser) => {
   }
 }
 
+export async function logout() {
+  try {
+    await account.deleteSession("current");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getAccount() {
   try {
     const currentAccount = await account.get();
@@ -79,10 +87,18 @@ export async function getCurrentUser() {
   }
 }
 
-export async function logout() {
+export async function getUserByName(name: string) {
   try {
-    await account.deleteSession("current");
+    const user = await database.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.equal("name", name)]
+    );
+
+    if (!user) throw Error;
+    return user.documents[0];
   } catch (error) {
     console.log(error);
+    return null;
   }
 }

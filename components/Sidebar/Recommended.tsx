@@ -29,6 +29,7 @@ export default function Recommended({
           data.map((user) => (
             <UserItem
               key={user.$id}
+              id={user.$id}
               name={user.name}
               imageUrl={user.imageUrl!}
               isLive={true}

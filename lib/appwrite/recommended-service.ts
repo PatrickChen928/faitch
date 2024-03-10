@@ -1,14 +1,13 @@
 import { Query } from "appwrite";
 import { appwriteConfig, database } from "."
 import { IUser } from "@/types";
-import { getCurrentUser } from "./user-service";
 
 export const getRecommended = async () => {
   let userId
-  try {
-    const self = await getCurrentUser()
-    userId = self?.$id
-  } catch (e) { }
+  // try {
+  //   const self = await getCurrentUser()
+  //   userId = self?.$id
+  // } catch (e) { }
 
   let users: IUser[] = []
   if (userId) {
