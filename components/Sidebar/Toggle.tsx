@@ -4,9 +4,12 @@ import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react"
 import { useSidebar } from "@/store/user-sidebar"
 import { Button } from "../ui/button"
 import Hint from "../Hint"
+import { Skeleton } from "../ui/skeleton"
 
 export default function Toggle() {
   const { isOpen, open, close } = useSidebar((state) => state)
+
+
   const label = !isOpen ? "Expand" : "Collapse"
   return (
     <>
@@ -39,5 +42,14 @@ export default function Toggle() {
         )
       }
     </>
+  )
+}
+
+export const ToggleSkeleton = () => {
+  return (
+    <div className="p-3 pl-6 mb-2 hidden lg:flex items-center w-full">
+      <Skeleton className="w-[100px] h-6" />
+      <Skeleton className="w-6 h-6" />
+    </div>
   )
 }
