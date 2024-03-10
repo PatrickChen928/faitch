@@ -19,7 +19,7 @@ import Loading from "@/components/Loading"
 import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { account } from "@/lib/appwrite/config"
+import { account } from "@/lib/appwrite"
 import Logo from "@/components/Logo"
 
 export default function SignIn() {

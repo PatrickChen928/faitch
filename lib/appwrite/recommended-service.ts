@@ -1,15 +1,36 @@
 import { Query } from "appwrite";
-import { appwriteConfig, database } from "./config"
+import { appwriteConfig, database } from "."
 import { IUser } from "@/types";
+import { getCurrentUser } from "./user-service";
 
 export const getRecommended = async () => {
-  const users = await database.listDocuments(
-    appwriteConfig.databaseId,
-    appwriteConfig.userCollectionId,
-    [
-      Query.orderDesc("$updatedAt"),
-    ]
-  );
+  let userId
+  try {
+    const self = await getCurrentUser()
+    userId = self?.$id
+  } catch (e) { }
+
+  let users: IUser[] = []
+  if (userId) {
+    users = (await database.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [
+        Query.orderDesc("$createdAt"),
+        Query.notEqual("$id", userId),
+      ]
+    )).documents as IUser[];
+  } else {
+    users = (await database.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [
+        Query.orderDesc("$createdAt"),
+      ]
+    )).documents as IUser[];
+  }
+
+
   if (!users) throw Error("No users found");
-  return users.documents as IUser[];
+  return users;
 }

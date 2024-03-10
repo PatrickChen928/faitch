@@ -38,7 +38,7 @@ export default function SignUp() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignUpValidation>) {
     setIsLoading(true)
-    await createUserAccount(values)
+    await createUserAccount(values as any)
     setIsLoading(false)
     router.push('/sign-in')
   }

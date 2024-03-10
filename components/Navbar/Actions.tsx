@@ -1,10 +1,9 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import { Clapperboard } from "lucide-react"
-import { useGetCurrentUser, useLogout } from "@/lib/react-query"
+import { useGetCurrentUser } from "@/lib/react-query"
 import { Button } from "../ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import {
@@ -17,7 +16,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import ThemeBtn from "../ThemeBtn"
 import { logout } from "@/lib/appwrite/user-service"
-
 
 export default function Actions() {
   const router = useRouter()
@@ -51,7 +49,7 @@ export default function Actions() {
               <DropdownMenuTrigger className="focus-visible:outline-0">
                 <Avatar className="h-9 w-9 cursor-pointer">
                   <AvatarImage src={data.imageUrl} alt={data.name} />
-                  <AvatarFallback>{data.name}</AvatarFallback>
+                  <AvatarFallback>{data.name[0] + data.name[data.name.length - 1]}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
