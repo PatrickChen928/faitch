@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils"
 import "./globals.css";
@@ -32,6 +33,7 @@ export default function RootLayout({
           defaultTheme="dark"
         >
           <ReactQueryProvider>
+            <Toaster theme="light" position="bottom-center" />
             {children}
           </ReactQueryProvider>
         </ThemeProvider>

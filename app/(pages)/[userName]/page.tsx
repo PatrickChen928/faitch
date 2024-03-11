@@ -1,6 +1,8 @@
-import { isFollowingUser } from "@/lib/appwrite/follow-service";
-import { getUserByName } from "@/lib/appwrite/user-service";
+"use client"
+import { useGetUserByName, useIsFollowingUser } from "@/lib/react-query/follow";
 import { notFound } from "next/navigation";
+import { useEffect } from "react";
+import Actions from "./_components/actions";
 
 interface UserPageProps {
   params: {
@@ -8,20 +10,33 @@ interface UserPageProps {
   }
 }
 
-export default async function UserPage({ params }: UserPageProps) {
+export default function UserPage({ params }: UserPageProps) {
 
-  const user = await getUserByName(params.userName);
+  const { data: user, isLoading: isUserLoading } = useGetUserByName(params.userName);
+
+  const { data: isFollowingUser, mutateAsync } = useIsFollowingUser();
+
+
+  useEffect(() => {
+    if (user) {
+      mutateAsync(user.$id);
+    }
+  }, [user]);
+
+  if (isUserLoading) {
+    return <div>Loading...</div>
+  }
+
 
   if (!user) {
     notFound();
   }
 
-  const isFollowing = await isFollowingUser(user.$id);
-
   return (
     <div className="flex flex-col gap-y-4">
       {user.name}
       {user.email}
+      <Actions isFollowing={!!isFollowingUser} userId={user.$id} />
     </div>
   )
 }
