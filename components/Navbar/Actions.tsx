@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Clapperboard } from "lucide-react"
-import { useGetCurrentUser } from "@/lib/react-query"
+import { useGetCurrentUser } from "@/lib/react-query/user"
 import { Button } from "../ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import {
@@ -40,7 +40,7 @@ export default function Actions() {
         !!data && (
           <div className="flex items-center gap-x-4">
             <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary" asChild>
-              <Link href={`/u/${data.$id}`}>
+              <Link href={`/u/${data.name}`}>
                 <Clapperboard className="w-5 h-5 lg:mr-2" />
                 <span className="hidden lg:block">Dashboard</span>
               </Link>

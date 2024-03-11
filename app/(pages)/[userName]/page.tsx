@@ -6,13 +6,13 @@ import Actions from "./_components/actions";
 
 interface UserPageProps {
   params: {
-    userName: string
+    username: string
   }
 }
 
 export default function UserPage({ params }: UserPageProps) {
 
-  const { data: user, isLoading: isUserLoading } = useGetUserByName(params.userName);
+  const { data: user, isLoading: isUserLoading } = useGetUserByName(params.username);
 
   const { data: isFollowingUser, mutateAsync } = useIsFollowingUser();
 

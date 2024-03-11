@@ -2,10 +2,8 @@ import { IUser } from "@/types";
 import {
   useQuery,
   useMutation,
-  useQueryClient,
-  useInfiniteQuery,
 } from "@tanstack/react-query";
-import { createUserAccount, getCurrentUser, getUserByName, logout } from "../appwrite/user-service";
+import { createUserAccount, getCurrentUser, getGetSelfByUsername, logout } from "../appwrite/user-service";
 import { QUERY_KEYS } from "./queryKeys";
 
 export const useCreateUserAccount = () => {
@@ -27,3 +25,12 @@ export const useLogout = () => {
     queryFn: logout,
   });
 }
+
+export const useGetSelfByUserName = (username: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_NAME, username],
+    queryFn: () => getGetSelfByUsername(username),
+  });
+};
+
+

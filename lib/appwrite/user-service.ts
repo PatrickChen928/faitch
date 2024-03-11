@@ -2,12 +2,12 @@ import { IUser } from "@/types";
 import { account, appwriteConfig, avatars, database, ID } from ".";
 import { Query } from "appwrite";
 
-export async function saveUserToDB(user: {
+export const saveUserToDB = async (user: {
   accountId: string;
   email: string;
   name: string;
   imageUrl: URL;
-}) {
+}) => {
   try {
     const newUser = await database.createDocument(
       appwriteConfig.databaseId,
@@ -49,7 +49,7 @@ export const createUserAccount = async (user: IUser) => {
   }
 }
 
-export async function logout() {
+export const logout = async () => {
   try {
     await account.deleteSession("current");
   } catch (error) {
@@ -57,7 +57,7 @@ export async function logout() {
   }
 }
 
-export async function getAccount() {
+export const getAccount = async () => {
   try {
     const currentAccount = await account.get();
 
@@ -67,7 +67,7 @@ export async function getAccount() {
   }
 }
 
-export async function getCurrentUser() {
+export const getCurrentUser = async () => {
   try {
     const currentAccount = await getAccount();
 
@@ -87,7 +87,7 @@ export async function getCurrentUser() {
   }
 }
 
-export async function getUserByName(name: string) {
+export const getUserByName = async (name: string) => {
   try {
     const user = await database.listDocuments(
       appwriteConfig.databaseId,
@@ -97,6 +97,31 @@ export async function getUserByName(name: string) {
 
     if (!user) throw Error;
     return user.documents[0];
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export const getGetSelfByUsername = async (name: string) => {
+  try {
+    const self = await getCurrentUser();
+
+    if (!self) throw Error('Unauthorized');
+
+    const user = await database.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.equal("name", name)]
+    );
+
+    if (!user || user.documents.length === 0) throw Error("User not found");
+
+    const res = user.documents[0];
+
+    if (res.username !== self.username) throw Error('Unauthorized');
+
+    return res;
   } catch (error) {
     console.log(error);
     return null;
