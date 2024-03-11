@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUserByName } from "../appwrite/user-service";
 import { QUERY_KEYS } from "./queryKeys";
-import { followUser, isFollowingUser, unfollowUser } from "../appwrite/follow-service";
+import { followUser, getFollowedUsers, isFollowingUser, unfollowUser } from "../appwrite/follow-service";
 
 export const useGetUserByName = (userName: string) => {
   return useQuery({
@@ -25,5 +25,12 @@ export const useFollowUser = () => {
 export const useUnfollowUser = () => {
   return useMutation({
     mutationFn: (userId: string) => unfollowUser(userId),
+  });
+}
+
+export const useFollowedUsers = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.FOLLOWED_USERS],
+    queryFn: getFollowedUsers,
   });
 }

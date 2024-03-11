@@ -3,7 +3,10 @@ export enum QUERY_KEYS {
   GET_CURRENT_USER = "getCurrentUser",
   LOGOUT = "logout",
 
+  GET_RECOMMENDED = "getRecommended",
+
   // follow KEYS
   GET_USER_BY_NAME = "getUserByName",
   IS_FOLLOWING_USER = "isFollowingUser",
+  FOLLOWED_USERS = "followedUsers",
 }

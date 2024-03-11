@@ -10,9 +10,10 @@ import Loading from "@/components/Loading";
 interface ActionsProps {
   userId: string
   isFollowing: boolean
+  onChange: () => void
 }
 
-export default function Actions({ isFollowing, userId }: ActionsProps) {
+export default function Actions({ isFollowing, userId, onChange }: ActionsProps) {
   const { mutateAsync: followUser, isPending: isFollowPending } = useFollowUser()
   const { mutateAsync: unfollowUser, isPending: isUnfollowPending } = useUnfollowUser()
 
@@ -22,12 +23,16 @@ export default function Actions({ isFollowing, userId }: ActionsProps) {
         toast.success("Unfollowed the user")
       }).catch((e) => {
         toast.error(e.message)
+      }).finally(() => {
+        onChange()
       })
     } else {
       followUser(userId).then(() => {
         toast.success("Followed the user")
       }).catch((e) => {
         toast.error(e.message)
+      }).finally(() => {
+        onChange()
       })
     }
   }

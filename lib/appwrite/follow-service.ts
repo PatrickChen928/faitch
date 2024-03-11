@@ -2,6 +2,24 @@ import { ID, Query } from "appwrite";
 import { appwriteConfig, database } from ".";
 import { getCurrentUser } from "./user-service";
 
+
+export const getFollowedUsers = async () => {
+  const user = await getCurrentUser();
+  if (!user) return [];
+
+  const selfId = user.$id;
+
+  const response = await database.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.followCollectionId,
+    [
+      Query.equal("follower", selfId)
+    ]
+  );
+
+  return response.documents;
+}
+
 export const isFollowingUser = async (id: string) => {
   try {
     const user = await getCurrentUser();
@@ -15,8 +33,8 @@ export const isFollowingUser = async (id: string) => {
       appwriteConfig.databaseId,
       appwriteConfig.followCollectionId,
       [
-        Query.equal("followerId", selfId),
-        Query.equal("followingId", id)
+        Query.equal("follower", selfId),
+        Query.equal("following", id)
       ]
     );
 
@@ -51,10 +69,8 @@ export const followUser = async (id: string) => {
     appwriteConfig.followCollectionId,
     ID.unique(),
     {
-      followerId: selfId,
-      followingId: id,
-      following: true,
-      follower: true
+      follower: selfId,
+      following: id,
     }
   )
 
@@ -75,8 +91,8 @@ export const unfollowUser = async (id: string) => {
     appwriteConfig.databaseId,
     appwriteConfig.followCollectionId,
     [
-      Query.equal("followerId", selfId),
-      Query.equal("followingId", id)
+      Query.equal("follower", selfId),
+      Query.equal("following", id)
     ]
   );
 

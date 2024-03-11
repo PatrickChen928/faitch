@@ -1,5 +1,5 @@
 "use client"
-import { useGetUserByName, useIsFollowingUser } from "@/lib/react-query/follow";
+import { useFollowedUsers, useGetUserByName, useIsFollowingUser } from "@/lib/react-query/follow";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 import Actions from "./_components/actions";
@@ -16,6 +16,7 @@ export default function UserPage({ params }: UserPageProps) {
 
   const { data: isFollowingUser, mutateAsync } = useIsFollowingUser();
 
+  const { data: followedUsers } = useFollowedUsers();
 
   useEffect(() => {
     if (user) {
@@ -36,7 +37,9 @@ export default function UserPage({ params }: UserPageProps) {
     <div className="flex flex-col gap-y-4">
       {user.name}
       {user.email}
-      <Actions isFollowing={!!isFollowingUser} userId={user.$id} />
+      <Actions isFollowing={!!isFollowingUser} userId={user.$id} onChange={() => {
+        mutateAsync(user.$id);
+      }} />
     </div>
   )
 }

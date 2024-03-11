@@ -5,6 +5,7 @@ import { useSidebar } from "@/store/user-sidebar"
 import { ToggleSkeleton } from "./Toggle"
 import { RecommendedSkeleton } from "./Recommended"
 import { useIsClient } from "usehooks-ts"
+import { FollowingSkeleton } from "./Following"
 
 export default function Wrapper({ children }: {
   children: React.ReactNode
@@ -15,6 +16,7 @@ export default function Wrapper({ children }: {
   if (!isClient) return (
     <aside className="fixed left-0 flex w-[70px] lg:w-60 flex-col h-full bg-sidebar border-r border-[#2D2E35] z-50">
       <ToggleSkeleton />
+      <FollowingSkeleton />
       <RecommendedSkeleton />
     </aside>
   )
