@@ -6,6 +6,7 @@ export const appwriteConfig = {
   databaseId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
   userCollectionId: process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID!,
   followCollectionId: process.env.NEXT_PUBLIC_APPWRITE_FOLLOW_COLLECTION_ID!,
+  blockCollectionId: process.env.NEXT_PUBLIC_APPWRITE_BLOCK_COLLECTION_ID!,
 }
 
 export const client = new Client()

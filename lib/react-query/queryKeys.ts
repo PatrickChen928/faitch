@@ -9,4 +9,6 @@ export enum QUERY_KEYS {
   GET_USER_BY_NAME = "getUserByName",
   IS_FOLLOWING_USER = "isFollowingUser",
   FOLLOWED_USERS = "followedUsers",
+
+  IS_BLOCKED_USER = "isBlockedUser",
 }

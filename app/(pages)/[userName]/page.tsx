@@ -16,8 +16,6 @@ export default function UserPage({ params }: UserPageProps) {
 
   const { data: isFollowingUser, mutateAsync } = useIsFollowingUser();
 
-  const { data: followedUsers } = useFollowedUsers();
-
   useEffect(() => {
     if (user) {
       mutateAsync(user.$id);
