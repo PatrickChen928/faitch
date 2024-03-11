@@ -12,7 +12,7 @@ export default function Recommended({
 }: RecommendedProps) {
   const { isOpen } = useSidebar((state) => state)
 
-  const showLabel = isOpen && data.length > 0
+  const showLabel = isOpen && data && data.length > 0
   return (
     <div className="space-y-4 pt-4 lg:pt-0">
       {
