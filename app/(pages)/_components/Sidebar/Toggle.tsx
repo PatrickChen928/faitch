@@ -2,9 +2,9 @@
 
 import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react"
 import { useSidebar } from "@/store/user-sidebar"
-import { Button } from "../../../../components/ui/button"
-import Hint from "../../../../components/Hint"
-import { Skeleton } from "../../../../components/ui/skeleton"
+import { Button } from "@/components/ui/button"
+import Hint from "@/components/Hint"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Toggle() {
   const { isOpen, open, close } = useSidebar((state) => state)

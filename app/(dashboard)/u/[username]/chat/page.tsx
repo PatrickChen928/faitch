@@ -4,10 +4,10 @@ import { useCallback, useEffect } from "react"
 import { useUser } from "@/components/UserContext"
 import { useGetStreamByUserId } from "@/lib/react-query/stream"
 import ToggleCard from "./_components/ToggleCard"
+import ChatSkeleton from "./_components/ChatSkeleton"
 
 export default function ChatPage() {
-
-  const { current } = useUser()
+  const { current, loading } = useUser()
   const { data, mutateAsync } = useGetStreamByUserId()
 
   const handleGetStreamInfo = useCallback(() => {
@@ -20,6 +20,12 @@ export default function ChatPage() {
     handleGetStreamInfo()
   }, [handleGetStreamInfo])
 
+  if (loading) {
+    return (
+      <ChatSkeleton />
+    )
+  }
+
   return (
     <div className="p-6">
       <div className="mb-4">
@@ -30,6 +36,18 @@ export default function ChatPage() {
           field="isChatEnabled"
           label="Enable chat"
           value={data?.isChatEnabled}
+          onChange={handleGetStreamInfo}
+        />
+        <ToggleCard
+          field="isChatDelayed"
+          label="Delay chat"
+          value={data?.isChatDelayed}
+          onChange={handleGetStreamInfo}
+        />
+        <ToggleCard
+          field="isChatFollowersOnly"
+          label="Must be following to chat"
+          value={data?.isChatFollowersOnly}
           onChange={handleGetStreamInfo}
         />
       </div>
