@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Logo from "../Logo";
+import Logo from "../../../../components/Logo";
 import Search from "./Search";
 import Actions from "./Actions";
 

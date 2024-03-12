@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Container from "@/components/Container";
-import Navbar from "@/components/Navbar";
-import Sidebar, { SidebarSkeleton } from "@/components/Sidebar";
+import Navbar from "@/app/(pages)/_components/Navbar";
+import Sidebar, { SidebarSkeleton } from "@/app/(pages)/_components/Sidebar";
 
 export default function Page({ children }: {
   children: React.ReactNode

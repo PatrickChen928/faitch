@@ -2,12 +2,12 @@
 
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Button } from "../ui/button"
-import { Skeleton } from "../ui/skeleton"
+import { Button } from "../../../../components/ui/button"
+import { Skeleton } from "../../../../components/ui/skeleton"
 import { useSidebar } from "@/store/user-sidebar"
 import Link from "next/link"
-import UserAvatar from "../UserAvatar"
-import LiveBadge from "../LiveBadge"
+import UserAvatar from "../../../../components/UserAvatar"
+import LiveBadge from "../../../../components/LiveBadge"
 
 interface UserItemProps {
   id: string

@@ -2,7 +2,6 @@
 
 import { useSidebar } from "@/store/user-sidebar"
 import UserItem, { UserItemSkeleton } from "./UserItem"
-import { IUser } from "@/types"
 
 interface FollowingProps {
   data: any
