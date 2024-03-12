@@ -41,7 +41,7 @@ export default function Actions({ isFollowing, userId, onChange }: ActionsProps)
     <Button
       disabled={isFollowPending || isUnfollowPending}
       onClick={handleFollow}
-      className="shad-button_primary"
+      variant="primary"
     >
       {isFollowPending || isUnfollowPending ? <Loading text="loading" /> : isFollowing ? "Unfollow" : "Follow"}
 

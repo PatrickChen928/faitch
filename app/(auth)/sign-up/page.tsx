@@ -94,7 +94,7 @@ export default function SignUp() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="shad-button_primary">{
+              <Button type="submit" variant="primary">{
                 isLoading ? <Loading text="Loading..." /> : "Sign up"
               }</Button>
             </form>

@@ -79,7 +79,7 @@ export default function SignIn() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="shad-button_primary">{
+              <Button type="submit" variant="primary">{
                 isLoading ? <Loading text="Loading..." /> : "Log In"
               }</Button>
             </form>
