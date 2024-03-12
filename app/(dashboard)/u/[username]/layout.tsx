@@ -14,17 +14,13 @@ interface CreatorLayoutProps {
 }
 
 export default function CreatorLayout({ params, children }: CreatorLayoutProps) {
-  const router = useRouter()
-  const { data, isLoading } = useGetSelfByUserName(params.username)
+  // const router = useRouter()
+  // const { data } = useGetSelfByUserName(params.username)
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  if (!data) {
-    router.push('/')
-    return null
-  }
+  // if (!data) {
+  //   router.push('/')
+  //   return null
+  // }
 
   return (
     <>

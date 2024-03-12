@@ -13,10 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import ThemeBtn from "@/components/ThemeBtn"
 import { useUser } from "@/components/UserContext"
+import { Skeleton } from "./ui/skeleton"
 
 export default function User() {
   const router = useRouter()
-  const { current: data, logout } = useUser()
+  const { current: data, loading, logout } = useUser()
+
+  if (loading) return <UserSkeleton />
+
   if (!data) {
     return (
       <Button size="sm" variant="secondary" className="text-muted-foreground hover:text-primary" onClick={() => router.push('/sign-in')}>Login</Button>
@@ -50,5 +54,11 @@ export default function User() {
         <DropdownMenuItem onSelect={() => handleMenuSelect('logout')}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+export const UserSkeleton = () => {
+  return (
+    <Skeleton className="h-9 w-9 rounded-full" />
   )
 }

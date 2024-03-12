@@ -2,14 +2,22 @@
 
 import { Fullscreen, KeyRound, MessageSquare, Users } from "lucide-react"
 import { usePathname } from "next/navigation"
-import NavItem from "./NavItem"
+import NavItem, { NavItemSkeleton } from "./NavItem"
 import { useUser } from "@/components/UserContext"
 
 export default function Navigation() {
   const pathname = usePathname()
   const { current: user } = useUser()
 
-  if (!user) return null
+  if (!user) return (
+    <ul className="space-y-2">
+      {
+        Array.from({ length: 4 }).map((_, i) => (
+          <NavItemSkeleton key={i} />
+        ))
+      }
+    </ul>
+  )
 
   const routes = [
     {

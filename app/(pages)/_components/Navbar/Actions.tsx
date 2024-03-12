@@ -3,11 +3,16 @@
 import Link from "next/link"
 import { Clapperboard } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import User from "@/components/User"
+import User, { UserSkeleton } from "@/components/User"
 import { useUser } from "@/components/UserContext"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Actions() {
-  const { current: data } = useUser()
+  const { current: data, loading } = useUser()
+
+  if (loading) {
+    return <ActionsSkeleton />
+  }
 
   return (
     <div className="flex items-center justify-center gap-x-2 ml-2 lg:ml-0">
@@ -22,6 +27,15 @@ export default function Actions() {
         )
       }
       <User />
+    </div>
+  )
+}
+
+export const ActionsSkeleton = () => {
+  return (
+    <div className="flex items-center justify-center gap-x-2 ml-2 lg:ml-0">
+      <Skeleton className="h-6 w-20" />
+      <UserSkeleton />
     </div>
   )
 }
