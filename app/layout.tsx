@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils"
 import "./globals.css";
 import { ReactQueryProvider } from "./react-query-provider";
+import { UserProvider } from "@/components/UserContext";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,8 +34,10 @@ export default function RootLayout({
           defaultTheme="dark"
         >
           <ReactQueryProvider>
-            <Toaster theme="light" position="bottom-center" />
-            {children}
+            <UserProvider>
+              <Toaster theme="light" position="bottom-center" />
+              {children}
+            </UserProvider>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

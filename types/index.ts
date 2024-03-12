@@ -6,3 +6,9 @@ export interface IUser extends Models.Document {
   password: string
   imageUrl?: string
 }
+
+export interface RegisterProps {
+  name: string
+  email: string
+  password: string
+}

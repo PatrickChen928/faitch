@@ -10,7 +10,7 @@ export default function Navbar() {
           <Logo hiddenTitle={true} />
         </div>
       </Link>
-      <h2>Creator Dashboard</h2>
+      <h2 className="small-semibold">Creator Dashboard</h2>
       <Actions />
     </nav>
   );

@@ -1,4 +1,4 @@
-import { IUser } from "@/types";
+import { RegisterProps } from "@/types";
 import { account, appwriteConfig, avatars, database, ID } from ".";
 import { Query } from "appwrite";
 
@@ -18,11 +18,11 @@ export const saveUserToDB = async (user: {
 
     return newUser;
   } catch (error) {
-    console.log(error);
+    return null
   }
 }
 
-export const createUserAccount = async (user: IUser) => {
+export const createUserAccount = async (user: RegisterProps) => {
   try {
     const newAccount = await account.create(
       ID.unique(),
@@ -44,8 +44,7 @@ export const createUserAccount = async (user: IUser) => {
 
     return newUser;
   } catch (error) {
-    console.log(error);
-    return error;
+    return null;
   }
 }
 
@@ -53,7 +52,6 @@ export const logout = async () => {
   try {
     await account.deleteSession("current");
   } catch (error) {
-    console.log(error);
   }
 }
 
@@ -63,7 +61,7 @@ export const getAccount = async () => {
 
     return currentAccount;
   } catch (error) {
-    console.log(error);
+    return null
   }
 }
 
@@ -82,7 +80,6 @@ export const getCurrentUser = async () => {
     if (!currentUser) throw Error;
     return currentUser.documents[0];
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
@@ -98,7 +95,6 @@ export const getUserByName = async (name: string) => {
     if (!user) throw Error;
     return user.documents[0];
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
@@ -123,7 +119,6 @@ export const getGetSelfByUsername = async (name: string) => {
 
     return res;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }

@@ -1,0 +1,64 @@
+"use client"
+
+import { createContext, useContext, useEffect, useState } from "react";
+import { account } from "@/lib/appwrite";
+import { IUser, RegisterProps } from "@/types";
+import { createUserAccount, getCurrentUser } from "@/lib/appwrite/user-service";
+
+interface UserContextProps {
+  current: null | IUser;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (values: RegisterProps) => Promise<void>;
+
+}
+
+const UserContext = createContext<UserContextProps>({
+  current: null,
+  login: async () => { },
+  logout: async () => { },
+  register: async () => { }
+});
+
+export function useUser() {
+  return useContext(UserContext);
+}
+
+export function UserProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<IUser | null>(null);
+
+  async function login(email: string, password: string) {
+    await account.createEmailSession(email, password);
+    const user = await getCurrentUser();
+    setUser(user as IUser);
+  }
+
+  async function logout() {
+    await account.deleteSession("current");
+    setUser(null);
+  }
+
+  async function register(values: RegisterProps) {
+    await createUserAccount(values)
+    await login(values.email, values.password);
+  }
+
+  async function init() {
+    try {
+      const res = await getCurrentUser();
+      setUser(res as IUser);
+    } catch (err) {
+      setUser(null);
+    }
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ current: user, login, logout, register }}>
+      {children}
+    </UserContext.Provider>
+  );
+}

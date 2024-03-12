@@ -21,8 +21,10 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { account } from "@/lib/appwrite"
 import Logo from "@/components/Logo"
+import { useUser } from "@/components/UserContext"
 
 export default function SignIn() {
+  const { login } = useUser()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   // 1. Define your form.
@@ -37,7 +39,7 @@ export default function SignIn() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignInValidation>) {
     setIsLoading(true)
-    await account.createEmailSession(values.email, values.password);
+    await login(values.email, values.password);
     router.push("/")
     setIsLoading(false)
   }
@@ -88,7 +90,7 @@ export default function SignIn() {
         </div>
       </div>
       <div className="relative hidden xl:block h-screen w-1/2">
-        <Image src="/assets/sign-in-bg.jpg" fill alt="" className="object-cover bg-no-repeat" />
+        <Image src="/assets/imgs/sign-in-bg.jpg" fill alt="" className="object-cover bg-no-repeat" />
       </div>
     </div>
   );

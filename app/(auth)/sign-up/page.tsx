@@ -21,9 +21,11 @@ import Loading from "@/components/Loading"
 import { createUserAccount } from '@/lib/appwrite/user-service'
 import { useState } from 'react'
 import Logo from '@/components/Logo'
+import { useUser } from '@/components/UserContext'
 
 export default function SignUp() {
   const router = useRouter()
+  const { register } = useUser()
   const [isLoading, setIsLoading] = useState(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
@@ -38,9 +40,9 @@ export default function SignUp() {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignUpValidation>) {
     setIsLoading(true)
-    await createUserAccount(values as any)
+    await register(values)
     setIsLoading(false)
-    router.push('/sign-in')
+    router.push('/')
   }
   return (
     <div className="flex h-screen">
@@ -103,7 +105,7 @@ export default function SignUp() {
         </div>
       </div>
       <div className="relative hidden xl:block h-screen w-1/2">
-        <Image src="/assets/sign-in-bg.jpg" fill alt="" className="object-cover bg-no-repeat" />
+        <Image src="/assets/imgs/sign-in-bg.jpg" fill alt="" className="object-cover bg-no-repeat" />
       </div>
     </div>
   );
