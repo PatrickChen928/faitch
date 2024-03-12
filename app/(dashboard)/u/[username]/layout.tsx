@@ -1,9 +1,10 @@
 "use client"
 
-import { useGetSelfByUserName } from "@/lib/react-query/user"
 import { useRouter } from "next/navigation"
+import { useGetSelfByUserName } from "@/lib/react-query/user"
 import Navbar from "./_components/Navbar"
 import Sidebar from "./_components/Sidebar"
+import Container from "./_components/Container"
 
 interface CreatorLayoutProps {
   params: {
@@ -30,7 +31,9 @@ export default function CreatorLayout({ params, children }: CreatorLayoutProps) 
       <Navbar />
       <div className="flex h-full pt-20">
         <Sidebar />
-        {children}
+        <Container>
+          {children}
+        </Container>
       </div>
     </>
   )

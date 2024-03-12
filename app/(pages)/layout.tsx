@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Container from "@/components/Container";
+import Container from "@/app/(pages)/_components/Container";
 import Navbar from "@/app/(pages)/_components/Navbar";
 import Sidebar, { SidebarSkeleton } from "@/app/(pages)/_components/Sidebar";
 
