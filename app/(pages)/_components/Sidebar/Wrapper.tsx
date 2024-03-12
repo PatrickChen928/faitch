@@ -14,7 +14,7 @@ export default function Wrapper({ children }: {
   const { isOpen } = useSidebar((state) => state)
 
   if (!isClient) return (
-    <aside className="fixed left-0 flex w-[70px] lg:w-60 flex-col h-full bg-sidebar border-r border-[#2D2E35] z-50">
+    <aside className="fixed left-0 flex w-[70px] lg:w-60 flex-col h-full bg-sidebar border-r z-50">
       <ToggleSkeleton />
       <FollowingSkeleton />
       <RecommendedSkeleton />
@@ -23,7 +23,7 @@ export default function Wrapper({ children }: {
 
   return (
     <aside className={cn(
-      "fixed left-0 flex w-60 flex-col h-full bg-sidebar border-r border-[#2D2E35] z-50",
+      "fixed left-0 flex w-60 flex-col h-full bg-sidebar border-r  z-50",
       !isOpen && "w-[70px]"
     )}>
       {children}

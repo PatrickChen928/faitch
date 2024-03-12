@@ -16,6 +16,17 @@ export const saveUserToDB = async (user: {
       user
     );
 
+    await database.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.streamCollectionId,
+      ID.unique(),
+      {
+        name: `${user.name}'s stream`,
+        user: newUser.$id,
+      }
+    );
+
+
     return newUser;
   } catch (error) {
     return null
