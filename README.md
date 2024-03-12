@@ -1,7 +1,9 @@
 ## Faitch
-Faitch is a fake livestream app, building with [next.js](https://nextjs.org/), [appwrite](https://appwrite.io/)
-
+Faitch is a fake livestream app, building with [next.js](https://nextjs.org/)
 
 ### TODO
   - ssr of appwrite
-  - recommended list filter self
+
+### Tech
+
+  - [appwrite](https://appwrite.io/)
