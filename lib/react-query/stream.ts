@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
-import { Stream, getStreamByUserId, updateStream } from "../appwrite/stream-service"
+import { Stream, createIngress, getStreamByUserId, updateStream } from "../appwrite/stream-service"
+import { IngressInput } from "livekit-server-sdk"
 
 export const useGetStreamByUserId = () => {
   return useMutation({
@@ -10,5 +11,11 @@ export const useGetStreamByUserId = () => {
 export const useUpdateStream = () => {
   return useMutation({
     mutationFn: (values: Partial<Stream>) => updateStream(values)
+  })
+}
+
+export const useCreateIngress = () => {
+  return useMutation({
+    mutationFn: (ingressType: IngressInput) => createIngress(ingressType)
   })
 }

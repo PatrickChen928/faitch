@@ -1,6 +1,11 @@
 import { Query } from "appwrite"
+import {
+  IngressInput,
+} from "livekit-server-sdk"
+
 import { appwriteConfig, database } from "."
 import { getCurrentUser } from "./user-service"
+import { createIngressLiveKit, resetIngress } from "@/actions/ingress"
 
 export interface Stream {
   name: string
@@ -49,4 +54,33 @@ export const updateStream = async (values: Partial<Stream>) => {
     validData
   )
   return stream
+}
+
+export const createIngress = async (ingressType: IngressInput) => {
+  const self = await getCurrentUser()
+
+  if (!self) {
+    throw new Error("Unauthorized")
+  }
+
+  await resetIngress("sss")
+
+  // const ingress = await createIngressLiveKit(ingressType, self.$id, self.name)
+
+  // const stream = await getStreamByUserId(self.$id)
+
+  // if (!stream) {
+  //   throw new Error("Stream not found")
+  // }
+
+  // await database.updateDocument(
+  //   appwriteConfig.databaseId,
+  //   appwriteConfig.streamCollectionId,
+  //   stream.$id,
+  //   {
+  //     ingressId: ingress.ingressId,
+  //     serverUrl: ingress.url,
+  //     streamKey: ingress.streamKey
+  //   }
+  // )
 }
