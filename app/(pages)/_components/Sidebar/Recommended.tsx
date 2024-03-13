@@ -4,7 +4,11 @@ import { IUser } from "@/types";
 import UserItem, { UserItemSkeleton } from "./UserItem";
 
 interface RecommendedProps {
-  data: IUser[]
+  data: (IUser & {
+    stream: {
+      isLive: boolean
+    }
+  })[]
 }
 
 export default function Recommended({
@@ -13,6 +17,8 @@ export default function Recommended({
   const { isOpen } = useSidebar((state) => state)
 
   const showLabel = isOpen && data && data.length > 0
+
+  console.log(data, "data======")
   return (
     <div className="space-y-4 pt-4 lg:pt-0">
       {
@@ -32,7 +38,7 @@ export default function Recommended({
               id={user.$id}
               name={user.name}
               imageUrl={user.imageUrl!}
-              isLive={true}
+              isLive={user.stream?.isLive}
             />
           ))
         }

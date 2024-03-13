@@ -94,7 +94,12 @@ export const getCurrentUser = async () => {
     );
 
     if (!currentUser) throw Error;
-    return currentUser.documents[0];
+
+    const res = currentUser.documents[0];
+    if (res && res.stream && res.stream.length > 0) {
+      res.stream = res.stream[0];
+    }
+    return res;
   } catch (error) {
     return null;
   }
