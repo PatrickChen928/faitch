@@ -63,24 +63,24 @@ export const createIngress = async (ingressType: IngressInput) => {
     throw new Error("Unauthorized")
   }
 
-  await resetIngress("sss")
+  await resetIngress(self.$id)
 
-  // const ingress = await createIngressLiveKit(ingressType, self.$id, self.name)
+  const ingress = await createIngressLiveKit(ingressType, self.$id, self.name)
 
-  // const stream = await getStreamByUserId(self.$id)
+  const stream = await getStreamByUserId(self.$id)
 
-  // if (!stream) {
-  //   throw new Error("Stream not found")
-  // }
+  if (!stream) {
+    throw new Error("Stream not found")
+  }
 
-  // await database.updateDocument(
-  //   appwriteConfig.databaseId,
-  //   appwriteConfig.streamCollectionId,
-  //   stream.$id,
-  //   {
-  //     ingressId: ingress.ingressId,
-  //     serverUrl: ingress.url,
-  //     streamKey: ingress.streamKey
-  //   }
-  // )
+  await database.updateDocument(
+    appwriteConfig.databaseId,
+    appwriteConfig.streamCollectionId,
+    stream.$id,
+    {
+      ingressId: ingress.ingressId,
+      serverUrl: ingress.url,
+      streamKey: ingress.streamKey
+    }
+  )
 }
