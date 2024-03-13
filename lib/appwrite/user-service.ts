@@ -1,6 +1,7 @@
+import { Query } from "appwrite";
 import { RegisterProps } from "@/types";
 import { account, appwriteConfig, avatars, database, ID } from ".";
-import { Query } from "appwrite";
+import { getRadomBgOfAvatar } from "@/lib/utils";
 
 export const saveUserToDB = async (user: {
   accountId: string;
@@ -52,7 +53,7 @@ export const createUserAccount = async (user: RegisterProps) => {
 
   if (!newAccount) throw Error;
 
-  const avatarUrl = avatars.getInitials(user.name, 512, 512, "5DA2FC");
+  const avatarUrl = avatars.getInitials(user.name, 512, 512, getRadomBgOfAvatar());
 
   const newUser = await saveUserToDB({
     accountId: newAccount.$id,
@@ -95,11 +96,7 @@ export const getCurrentUser = async () => {
 
     if (!currentUser) throw Error;
 
-    const res = currentUser.documents[0];
-    if (res && res.stream && res.stream.length > 0) {
-      res.stream = res.stream[0];
-    }
-    return res;
+    return currentUser.documents[0];
   } catch (error) {
     return null;
   }

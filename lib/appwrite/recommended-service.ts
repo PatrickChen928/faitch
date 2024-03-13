@@ -5,9 +5,14 @@ import { getCurrentUser } from "./user-service";
 
 export const getRecommended = async () => {
   let userId
+  const followingIds: string[] = []
   try {
     const self = await getCurrentUser()
     userId = self?.$id
+
+    self?.following?.forEach((fol: any) => {
+      followingIds.push(fol.following?.$id)
+    })
   } catch (e) { }
 
   let users: IUser[] = []
@@ -18,6 +23,7 @@ export const getRecommended = async () => {
       [
         Query.orderDesc("$createdAt"),
         Query.notEqual("$id", userId),
+        ...followingIds.map((id) => Query.notEqual("$id", id))
       ]
     )).documents as IUser[];
   } else {
@@ -32,12 +38,6 @@ export const getRecommended = async () => {
 
 
   if (!users) throw Error("No users found");
-
-  users.forEach((user) => {
-    if (user.stream && user.stream.length > 0) {
-      user.stream = user.stream[0];
-    }
-  })
 
   return users;
 }

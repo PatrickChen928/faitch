@@ -18,7 +18,6 @@ export default function Recommended({
 
   const showLabel = isOpen && data && data.length > 0
 
-  console.log(data, "data======")
   return (
     <div className="space-y-4 pt-4 lg:pt-0">
       {

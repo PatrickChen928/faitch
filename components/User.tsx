@@ -31,7 +31,7 @@ export default function User() {
   const handleMenuSelect = async (item: string) => {
     if (item === "logout") {
       await logout()
-      router.push("/")
+      router.push("/sign-in")
     }
   }
 

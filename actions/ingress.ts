@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import {
   IngressAudioEncodingPreset,
   IngressInput,
@@ -48,6 +49,8 @@ export const createIngressLiveKit = async (ingressType: IngressInput, id: string
   if (!ingress || !ingress.url || !ingress.streamKey) {
     throw new Error("Failed to create ingress")
   }
+
+  revalidatePath(`/u/${name}/keys`);
 
   return ingress
 }

@@ -22,7 +22,13 @@ export default function Following({ data }: FollowingProps) {
       }
       <ul className="space-y-2 px-2">
         {data.map(({ following: user }: any) => (
-          <UserItem key={user.$id} name={user.name} id={user.$id} imageUrl={user.imageUrl} />
+          <UserItem
+            key={user.$id}
+            name={user.name}
+            id={user.$id}
+            imageUrl={user.imageUrl}
+            isLive={user.stream?.isLive}
+          />
         ))}
       </ul>
     </div >
