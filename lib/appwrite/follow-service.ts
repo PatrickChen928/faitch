@@ -17,7 +17,25 @@ export const getFollowedUsers = async () => {
     ]
   );
 
-  return response.documents;
+  const res = response.documents.map((doc) => {
+    return {
+      ...doc,
+      following: {
+        ...doc.following,
+        stream: {
+          isLive: doc.following.stream?.live
+        }
+      },
+      follower: {
+        ...doc.follower,
+        stream: {
+          isLive: doc.follower.stream?.live
+        }
+      }
+    }
+  });
+
+  return res;
 }
 
 export const isFollowingUser = async (id: string) => {
