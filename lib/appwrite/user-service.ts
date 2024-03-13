@@ -34,29 +34,34 @@ export const saveUserToDB = async (user: {
 }
 
 export const createUserAccount = async (user: RegisterProps) => {
-  try {
-    const newAccount = await account.create(
-      ID.unique(),
-      user.email,
-      user.password,
-      user.name
-    );
+  // is username exists
+  const usernameExists = await database.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.userCollectionId,
+    [Query.equal("name", user.name)]
+  );
 
-    if (!newAccount) throw Error;
+  if (usernameExists.documents.length > 0) throw Error('Username already exists');
 
-    const avatarUrl = avatars.getInitials(user.name, 512, 512, "5DA2FC");
+  const newAccount = await account.create(
+    ID.unique(),
+    user.email,
+    user.password,
+    user.name
+  );
 
-    const newUser = await saveUserToDB({
-      accountId: newAccount.$id,
-      name: newAccount.name,
-      email: newAccount.email,
-      imageUrl: avatarUrl,
-    });
+  if (!newAccount) throw Error;
 
-    return newUser;
-  } catch (error) {
-    return null;
-  }
+  const avatarUrl = avatars.getInitials(user.name, 512, 512, "5DA2FC");
+
+  const newUser = await saveUserToDB({
+    accountId: newAccount.$id,
+    name: newAccount.name,
+    email: newAccount.email,
+    imageUrl: avatarUrl,
+  });
+
+  return newUser;
 }
 
 export const logout = async () => {
