@@ -39,5 +39,10 @@ export const getRecommended = async () => {
 
   if (!users) throw Error("No users found");
 
+  users.forEach(user => {
+    user.stream = {
+      isLive: user.stream?.live
+    }
+  })
   return users;
 }
