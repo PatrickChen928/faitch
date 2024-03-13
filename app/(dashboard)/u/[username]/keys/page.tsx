@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@/components/UserContext";
 import KeyCard from "./_components/KeyCard";
 import UrlCard from "./_components/UrlCard";
+import ConnectModal from "./_components/ConnectModal";
 
 export default function KeysPage() {
 
@@ -23,9 +24,7 @@ export default function KeysPage() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">Keys & URLs</h1>
-        <Button variant="primary">
-          Generate
-        </Button>
+        <ConnectModal />
       </div>
       <div className="space-y-4">
         <UrlCard value={data?.serverUrl} />
