@@ -2,6 +2,7 @@
 
 import StreamPlayer from "@/components/stream-player"
 import { useUser } from "@/components/UserContext"
+import { useRouter } from "next/navigation"
 
 interface CreatorPageProps {
   params: {
@@ -10,15 +11,16 @@ interface CreatorPageProps {
 }
 
 export default function CreatorPage({ params }: CreatorPageProps) {
+  const router = useRouter()
   const { current, loading } = useUser()
 
   if (loading) {
     return <div>Loading...</div>
   }
 
-  if (current && current?.name !== params.username) {
-    throw new Error("Unauthorized")
-    // return <div>Unauthorized</div>
+  if (!current || current.name !== params.username) {
+    router.push("/sign-in")
+    return null
   }
 
   return (
