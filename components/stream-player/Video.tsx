@@ -36,8 +36,6 @@ export default function Video({
     content = <LiveVideo participant={participant!} />
   }
 
-  return <LiveVideo participant={participant!} />
-
   return (
     <div className="aspect-video border-b group relative">
       {content}
