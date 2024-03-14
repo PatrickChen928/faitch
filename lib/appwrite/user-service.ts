@@ -120,6 +120,22 @@ export const getUserByName = async (name: string) => {
   }
 }
 
+export const getUserById = async (id: string) => {
+  try {
+    const user = await database.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      id
+    );
+
+    if (!user) throw Error("User not found");
+    return user;
+  } catch (error) {
+    return null;
+  }
+
+}
+
 export const getGetSelfByUsername = async (name: string) => {
   try {
     const self = await getCurrentUser();

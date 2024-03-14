@@ -2,16 +2,20 @@ import { ID, Query } from "appwrite"
 import { appwriteConfig, database } from "."
 import { getCurrentUser } from "./user-service"
 
-export const isBlockedByUser = async (id: string) => {
+export const isBlockedByUser = async (id: string, selfId?: string) => {
   try {
-    const self = await getCurrentUser()
+    if (!selfId) {
+      const self = await getCurrentUser()
 
-    if (!self) return false
+      if (!self) return false
 
+      selfId = self.$id
+    }
 
-    if (id === self.$id) {
+    if (id === selfId) {
       return false
     }
+
 
     const otherUser = await database.getDocument(
       appwriteConfig.databaseId,
@@ -29,7 +33,7 @@ export const isBlockedByUser = async (id: string) => {
       appwriteConfig.blockCollectionId,
       [
         Query.equal("blocker", otherUser.$id),
-        Query.equal("blockedBy", self.$id)
+        Query.equal("blockedBy", selfId)
       ]
     )
     return existingBlock.documents.length > 0

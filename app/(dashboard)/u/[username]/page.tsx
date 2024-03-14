@@ -1,6 +1,6 @@
 "use client"
 
-import StreamPlayer from "@/components/StreamPlayer"
+import StreamPlayer from "@/components/stream-player"
 import { useUser } from "@/components/UserContext"
 
 interface CreatorPageProps {
