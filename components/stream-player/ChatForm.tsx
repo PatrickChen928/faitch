@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
+import ChatInfo from "./ChatInfo";
 
 interface ChatFormProps {
   onSubmit: () => void;
@@ -52,6 +54,10 @@ export default function ChatForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center gap-y-4 p-3">
       <div className="w-full">
+        <ChatInfo
+          isDelayed={isDelayed}
+          isFollowsOnly={isFollowsOnly}
+        />
         <Input
           onChange={(e) => onChange(e.target.value)}
           value={value}
@@ -74,5 +80,17 @@ export default function ChatForm({
         </Button>
       </div>
     </form>
+  )
+}
+
+export const ChatFormSkeleton = () => {
+  return (
+    <div className="flex flex-col items-center gap-y-4 p-3">
+      <Skeleton className="w-full h-10" />
+      <div className="flex items-center gap-x-2 ml-auto">
+        <Skeleton className="w-7 h-7" />
+        <Skeleton className="w-12 h-7" />
+      </div>
+    </div>
   )
 }
