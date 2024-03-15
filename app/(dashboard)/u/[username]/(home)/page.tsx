@@ -1,8 +1,9 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import StreamPlayer from "@/components/stream-player"
 import { useUser } from "@/components/UserContext"
-import { useRouter } from "next/navigation"
+import Loading from "./loading"
 
 interface CreatorPageProps {
   params: {
@@ -15,7 +16,9 @@ export default function CreatorPage({ params }: CreatorPageProps) {
   const { current, loading } = useUser()
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <Loading />
+    )
   }
 
   if (!current || current.name !== params.username) {
