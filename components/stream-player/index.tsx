@@ -9,6 +9,7 @@ import ChatToggle from "./ChatToggle";
 import { cn } from "@/lib/utils";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import Header, { HeaderSkeleton } from "./Header";
+import InfoCard from "./InfoCard";
 
 interface StreamPlayerProps {
   user: IUser;
@@ -58,6 +59,12 @@ export default function StreamPlayer({
             imageUrl={user.imageUrl!}
             isFollowing={isFollowing}
             name={stream?.name}
+          />
+          <InfoCard
+            hostIdentity={user.$id}
+            viewerIdentity={identity}
+            name={stream?.name}
+            thumbnailUrl={stream?.thumbnailUrl}
           />
         </div>
         <div className={cn(
