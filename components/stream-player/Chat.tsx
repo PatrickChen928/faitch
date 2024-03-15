@@ -7,6 +7,7 @@ import { useChat, useConnectionState, useRemoteParticipant } from "@livekit/comp
 import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar";
 import ChatHeader from "./ChatHeader";
 import ChatForm from "./ChatForm";
+import ChatList from "./ChatList";
 
 interface ChatProps {
   hostName: string;
@@ -65,6 +66,10 @@ export default function Chat({
       {
         variant === ChatVariant.CHAT && (
           <>
+            <ChatList
+              messages={reversedMessages}
+              isHidden={isHidden}
+            />
             <ChatForm
               onSubmit={onSubmit}
               value={value}
