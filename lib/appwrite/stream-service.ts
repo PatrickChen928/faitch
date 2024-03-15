@@ -39,19 +39,11 @@ export const updateStream = async (values: Partial<Stream>) => {
     throw new Error("Stream not found")
   }
 
-
-  const validData = {
-    name: values.name,
-    isChatEnabled: values.isChatEnabled,
-    isChatDelayed: values.isChatDelayed,
-    isChatFollowersOnly: values.isChatFollowersOnly,
-  }
-
   const stream = await database.updateDocument(
     appwriteConfig.databaseId,
     appwriteConfig.streamCollectionId,
     selfStream.$id,
-    validData
+    values
   )
   return stream
 }

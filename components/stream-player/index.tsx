@@ -9,7 +9,7 @@ import ChatToggle from "./ChatToggle";
 import { cn } from "@/lib/utils";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import Header, { HeaderSkeleton } from "./Header";
-import InfoCard from "./InfoCard";
+import InfoCard, { InfoCardSkeleton } from "./InfoCard";
 
 interface StreamPlayerProps {
   user: IUser;
@@ -92,6 +92,7 @@ export const StreamPlayerSkeleton = () => {
       <div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
         <VideoSkeleton />
         <HeaderSkeleton />
+        <InfoCardSkeleton />
       </div>
       <div className="col-span-1 bg-background">
         <ChatSkeleton />
