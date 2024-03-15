@@ -1,4 +1,5 @@
 import { ReceivedChatMessage } from "@livekit/components-react"
+import { Skeleton } from "@/components/ui/skeleton";
 import ChatMessage from "./ChatMessage";
 
 
@@ -35,4 +36,10 @@ export default function ChatList({
       }
     </div>
   )
+}
+
+export const ChatListSkeleton = () => {
+  <div className="flex h-full items-center justify-center">
+    <Skeleton className="w-1/2 h-6" />
+  </div>
 }

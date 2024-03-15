@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import { stringToColor } from "@/lib/utils";
 import { ReceivedChatMessage } from "@livekit/components-react";
+import { stringToColor } from "@/lib/utils";
 
 
 interface ChatMessageProps {

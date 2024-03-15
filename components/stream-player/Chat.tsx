@@ -8,6 +8,7 @@ import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar";
 import ChatHeader from "./ChatHeader";
 import ChatForm from "./ChatForm";
 import ChatList from "./ChatList";
+import ChatCommunity from "./ChatCommunity";
 
 interface ChatProps {
   hostName: string;
@@ -84,9 +85,11 @@ export default function Chat({
       }
       {
         variant === ChatVariant.COMMUNITY && (
-          <>
-            <p>Community mode</p>
-          </>
+          <ChatCommunity
+            viewerName={viewerName}
+            hostName={hostName}
+            isHidden={isHidden}
+          />
         )
       }
     </div>
