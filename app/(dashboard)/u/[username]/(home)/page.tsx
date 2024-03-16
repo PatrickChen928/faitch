@@ -21,7 +21,7 @@ export default function CreatorPage({ params }: CreatorPageProps) {
     )
   }
 
-  if (!current || current.name !== params.username) {
+  if (!current || current.name !== decodeURIComponent(params.username)) {
     router.push("/sign-in")
     return null
   }

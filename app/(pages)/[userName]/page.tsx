@@ -14,7 +14,7 @@ interface UserPageProps {
 
 export default function UserPage({ params }: UserPageProps) {
 
-  const { data: user, isLoading: isUserLoading } = useGetUserByName(params.username);
+  const { data: user, isLoading: isUserLoading } = useGetUserByName(decodeURIComponent(params.username));
   const { data: isFollowingUser, mutateAsync: getIsFollowingUser, isPending: followingLoading } = useIsFollowingUser();
   const { data: isBlockedUser, mutateAsync: getIsBlockedUser, isPending: blockedLoading } = useIsBlockedUser();
 
