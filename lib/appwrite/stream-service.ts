@@ -6,12 +6,15 @@ import {
 import { appwriteConfig, database } from "."
 import { getCurrentUser } from "./user-service"
 import { createIngressLiveKit, resetIngress } from "@/actions/ingress"
+import { createFile, getFileView } from "./storage-service"
 
 export interface Stream {
   name: string
   isChatEnabled: boolean
   isChatDelayed: boolean
   isChatFollowersOnly: boolean
+  thumbnailUrl: string
+  thumbnailId: string
 }
 
 export const getStreamByUserId = async (userId: string) => {
@@ -75,4 +78,11 @@ export const createIngress = async (ingressType: IngressInput) => {
       streamKey: ingress.streamKey
     }
   )
+}
+
+export const uploadThumbnail = async (file: File) => {
+  const res = await createFile(file)
+  const fileId = res.$id
+  const fileUrl = getFileView(fileId)
+  return updateStream({ thumbnailUrl: fileUrl.href, thumbnailId: fileId })
 }

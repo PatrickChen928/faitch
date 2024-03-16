@@ -1,6 +1,7 @@
 "use client";
 
 import { ElementRef, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -14,25 +15,31 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Loading from "@/components/Loading";
-import { useUpdateStream } from "@/lib/react-query/stream";
-import { useCreateFile } from "@/lib/react-query/storage";
+import { useUpdateStream, useUpdateThumbnail } from "@/lib/react-query/stream";
 import { getFileView } from "@/lib/appwrite/storage-service";
+import { FileUploading } from "../file-uploading";
+import { useCreateFile } from "@/lib/react-query/storage";
 
 interface InfoModalProps {
   initialName: string;
+  initialThumbnailId: string;
   initialThumbnailUrl: string;
 }
 
 export default function InfoModal({
   initialName,
+  initialThumbnailId,
   initialThumbnailUrl
 }: InfoModalProps) {
-  const { mutateAsync: uploadFile } = useCreateFile();
+  const router = useRouter();
+
+  const { mutateAsync: uploadFile, isPending: uploadLoading } = useCreateFile();
+  const { mutateAsync, isPending } = useUpdateStream();
 
   const closeRef = useRef<ElementRef<"button">>(null);
-  const { mutateAsync, isPending } = useUpdateStream();
   const [name, setName] = useState(initialName);
   const [thumbnailUrl, setThumbnailUrl] = useState(initialThumbnailUrl);
+  const [thumbnailId, setThumbnailId] = useState(initialThumbnailId);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -41,15 +48,19 @@ export default function InfoModal({
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    mutateAsync({ name }).then(() => {
+    mutateAsync({ name, thumbnailUrl, thumbnailId }).then(() => {
       toast.success("Stream info updated");
       closeRef.current?.click();
-      setName(name);
+      router.refresh();
     }).catch(() => {
       toast.error("Failed to update stream info");
     })
   }
 
+  const onFileRemove = () => {
+    setThumbnailId("");
+    setThumbnailUrl("");
+  }
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -57,10 +68,10 @@ export default function InfoModal({
     if (!file) {
       return;
     }
-    mutateAsync(file).then((res) => {
-      console.log(res, "success");
-
-      console.log(getFileView(res.$id))
+    uploadFile(file).then((res) => {
+      const fileUrl = getFileView(res.$id);
+      setThumbnailId(res.$id);
+      setThumbnailUrl(fileUrl.href)
     }).catch((e) => {
       console.log("error", e);
     });
@@ -90,8 +101,8 @@ export default function InfoModal({
           </div>
           <div className="space-y-2">
             <Label>Thumbnail</Label>
-            <div className="rounded-xl border outline-dashed outline-muted">
-
+            <div className="relative rounded-xl border outline-dashed outline-muted h-[150px] overflow-hidden">
+              <FileUploading loading={uploadLoading} onFileChange={onFileChange} fileUrl={thumbnailUrl} onRemove={onFileRemove} />
             </div>
           </div>
           <div className="flex justify-between">

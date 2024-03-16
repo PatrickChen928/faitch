@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { Stream, createIngress, getStreamByUserId, updateStream } from "../appwrite/stream-service"
+import { Stream, createIngress, getStreamByUserId, updateStream, uploadThumbnail } from "../appwrite/stream-service"
 import { IngressInput } from "livekit-server-sdk"
 
 export const useGetStreamByUserId = () => {
@@ -17,5 +17,11 @@ export const useUpdateStream = () => {
 export const useCreateIngress = () => {
   return useMutation({
     mutationFn: (ingressType: IngressInput) => createIngress(ingressType)
+  })
+}
+
+export const useUpdateThumbnail = () => {
+  return useMutation({
+    mutationFn: (file: File) => uploadThumbnail(file)
   })
 }

@@ -64,6 +64,7 @@ export default function StreamPlayer({
             hostIdentity={user.$id}
             viewerIdentity={identity}
             name={stream?.name}
+            thumbnailId={stream?.thumbnailId}
             thumbnailUrl={stream?.thumbnailUrl}
           />
         </div>

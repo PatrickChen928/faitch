@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 interface InfoCardProps {
   name: string;
   thumbnailUrl: string;
+  thumbnailId: string;
   hostIdentity: string;
   viewerIdentity: string;
 }
@@ -17,6 +18,7 @@ interface InfoCardProps {
 export default function InfoCard({
   name,
   thumbnailUrl,
+  thumbnailId,
   hostIdentity,
   viewerIdentity
 }: InfoCardProps) {
@@ -40,6 +42,7 @@ export default function InfoCard({
           </div>
           <InfoModal
             initialName={name}
+            initialThumbnailId={thumbnailId}
             initialThumbnailUrl={thumbnailUrl}
           />
         </div>
@@ -64,6 +67,7 @@ export default function InfoCard({
                     fill
                     src={thumbnailUrl}
                     alt={name}
+                    objectFit="contain"
                   />
                 </div>
               )
