@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
@@ -26,6 +27,8 @@ export default function Actions({
   const { mutateAsync: followUser, isPending: followingPending } = useFollowUser();
   const { mutateAsync: unfollowUser, isPending: unfollowingPending } = useUnfollowUser();
 
+  const [following, setFollowing] = useState(isFollowing);
+
   const toggleFollow = () => {
     if (!current) {
       router.push("/sign-in");
@@ -34,15 +37,17 @@ export default function Actions({
 
     if (isHost) return;
 
-    if (isFollowing) {
+    if (following) {
       unfollowUser(hostIdentity).then(() => {
         toast.success("Unfollowed");
+        setFollowing(false);
       }).catch(() => {
         toast.error("Failed to unfollow");
       });
     } else {
       followUser(hostIdentity).then(() => {
         toast.success("Followed");
+        setFollowing(true);
       }).catch(() => {
         toast.error("Failed to follow");
       });
@@ -59,14 +64,14 @@ export default function Actions({
     >
       {
         followingPending || unfollowingPending ? (
-          <Loading text={isFollowing ? "Following" : "Follow"} />
+          <Loading text={following ? "Following" : "Follow"} />
         ) : (
           <>
             <Heart className={cn(
               "h-4 w-4",
-              isFollowing ? "fill-white" : "fill-none"
+              following ? "fill-red/70 stroke-red/70" : "fill-none"
             )} />
-            {isFollowing ? "Following" : "Follow"}
+            {following ? "Following" : "Follow"}
           </>
         )
       }
