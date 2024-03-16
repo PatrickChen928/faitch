@@ -32,7 +32,6 @@ export const getPublicStreams = async () => {
 }
 
 export const getStreamsFilterBlock = async (blockedIds: string[]) => {
-  const userInfo = await getCurrentUser()
   const streams = await database.listDocuments(
     appwriteConfig.databaseId,
     appwriteConfig.streamCollectionId,
