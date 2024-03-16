@@ -1,6 +1,7 @@
 import { ID, Query } from "appwrite"
 import { appwriteConfig, database } from "."
 import { getCurrentUser } from "./user-service"
+import { removeParticipant } from "@/actions/ingress"
 
 export const isBlockedByUser = async (id: string, selfId?: string) => {
   try {
@@ -53,6 +54,10 @@ export const blockUser = async (id: string) => {
     appwriteConfig.userCollectionId,
     id
   )
+
+  try {
+    await removeParticipant(self.$id, id)
+  } catch (e) { }
 
   if (!otherUser) throw Error("User not found")
 
