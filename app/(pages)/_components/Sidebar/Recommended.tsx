@@ -4,11 +4,7 @@ import { IUser } from "@/types";
 import UserItem, { UserItemSkeleton } from "./UserItem";
 
 interface RecommendedProps {
-  data: (IUser & {
-    stream: {
-      isLive: boolean
-    }
-  })[]
+  data: IUser[]
 }
 
 export default function Recommended({
