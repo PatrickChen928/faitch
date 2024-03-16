@@ -1,8 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
-import { Skeleton } from "./ui/skeleton"
-import { Avatar, AvatarImage } from "./ui/avatar"
-import { AvatarFallback } from "@radix-ui/react-avatar"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import LiveBadge from "./LiveBadge"
 
 const avatarSizes = cva("", {

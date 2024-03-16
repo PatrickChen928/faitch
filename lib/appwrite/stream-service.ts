@@ -17,6 +17,36 @@ export interface Stream {
   thumbnailId: string
 }
 
+export const getPublicStreams = async () => {
+  const streams = await database.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.streamCollectionId,
+    [
+      Query.equal("isLive", true),
+      Query.orderDesc("isLive"),
+      Query.orderDesc("$updatedAt")
+    ]
+  )
+
+  return streams.documents
+}
+
+export const getStreamsFilterBlock = async (blockedIds: string[]) => {
+  const userInfo = await getCurrentUser()
+  const streams = await database.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.streamCollectionId,
+    [
+      ...blockedIds.map((id) => Query.notEqual("user", id)),
+      Query.equal("isLive", true),
+      Query.orderDesc("isLive"),
+      Query.orderDesc("$updatedAt")
+    ]
+  )
+
+  return streams.documents
+}
+
 export const getStreamByUserId = async (userId: string) => {
   const stream = await database.listDocuments(
     appwriteConfig.databaseId,

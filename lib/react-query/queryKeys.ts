@@ -11,4 +11,6 @@ export enum QUERY_KEYS {
   FOLLOWED_USERS = "followedUsers",
 
   IS_BLOCKED_USER = "isBlockedUser",
+
+  GET_FEED_STREAMS = "getFeedStreams",
 }
