@@ -15,10 +15,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Loading from "@/components/Loading";
-import { useUpdateStream, useUpdateThumbnail } from "@/lib/react-query/stream";
+import { useUpdateStream } from "@/lib/react-query/stream";
 import { getFileView } from "@/lib/appwrite/storage-service";
 import { FileUploading } from "../file-uploading";
-import { useCreateFile } from "@/lib/react-query/storage";
+import { useCreateFile, useDeleteFile } from "@/lib/react-query/storage";
 
 interface InfoModalProps {
   initialName: string;
@@ -33,8 +33,8 @@ export default function InfoModal({
 }: InfoModalProps) {
   const router = useRouter();
 
-  const { mutateAsync: uploadFile, isPending: uploadLoading } = useCreateFile();
   const { mutateAsync, isPending } = useUpdateStream();
+  const { mutateAsync: uploadFile, isPending: uploadLoading } = useCreateFile();
 
   const closeRef = useRef<ElementRef<"button">>(null);
   const [name, setName] = useState(initialName);
@@ -58,7 +58,6 @@ export default function InfoModal({
   }
 
   const onFileRemove = () => {
-    setThumbnailId("");
     setThumbnailUrl("");
   }
 

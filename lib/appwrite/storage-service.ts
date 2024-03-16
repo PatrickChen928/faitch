@@ -13,3 +13,7 @@ export const createFile = async (file: File) => {
 export const getFileView = (fileId: string) => {
   return storage.getFileView(appwriteConfig.storageId, fileId);
 }
+
+export const deleteFile = (fileId: string) => {
+  return storage.deleteFile(appwriteConfig.storageId, fileId);
+}
