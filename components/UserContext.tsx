@@ -8,6 +8,7 @@ import { createUserAccount, getCurrentUser } from "@/lib/appwrite/user-service";
 interface UserContextProps {
   loading: boolean;
   current: null | IUser;
+  refresh: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (values: RegisterProps) => Promise<void>;
@@ -17,6 +18,7 @@ interface UserContextProps {
 const UserContext = createContext<UserContextProps>({
   loading: true,
   current: null,
+  refresh: async () => { },
   login: async () => { },
   logout: async () => { },
   register: async () => { }
@@ -62,7 +64,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ current: user, loading, login, logout, register }}>
+    <UserContext.Provider value={{ current: user, loading, login, logout, register, refresh: init }}>
       {children}
     </UserContext.Provider>
   );

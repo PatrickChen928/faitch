@@ -1,7 +1,6 @@
 "use client";
 
 import { ElementRef, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -18,7 +17,8 @@ import Loading from "@/components/Loading";
 import { useUpdateStream } from "@/lib/react-query/stream";
 import { getFileView } from "@/lib/appwrite/storage-service";
 import { FileUploading } from "../file-uploading";
-import { useCreateFile, useDeleteFile } from "@/lib/react-query/storage";
+import { useCreateFile } from "@/lib/react-query/storage";
+import { useUser } from "../UserContext";
 
 interface InfoModalProps {
   initialName: string;
@@ -31,7 +31,8 @@ export default function InfoModal({
   initialThumbnailId,
   initialThumbnailUrl
 }: InfoModalProps) {
-  const router = useRouter();
+
+  const { refresh } = useUser()
 
   const { mutateAsync, isPending } = useUpdateStream();
   const { mutateAsync: uploadFile, isPending: uploadLoading } = useCreateFile();
@@ -50,8 +51,8 @@ export default function InfoModal({
 
     mutateAsync({ name, thumbnailUrl, thumbnailId }).then(() => {
       toast.success("Stream info updated");
+      refresh();
       closeRef.current?.click();
-      router.refresh();
     }).catch(() => {
       toast.error("Failed to update stream info");
     })

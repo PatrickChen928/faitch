@@ -159,3 +159,20 @@ export const getGetSelfByUsername = async (name: string) => {
     return null;
   }
 }
+
+export const updateUserBio = async (bio: string) => {
+  const self = await getCurrentUser();
+
+  if (!self) throw Error('Unauthorized');
+
+  const updatedUser = await database.updateDocument(
+    appwriteConfig.databaseId,
+    appwriteConfig.userCollectionId,
+    self.$id,
+    {
+      bio
+    }
+  );
+
+  return updatedUser;
+}

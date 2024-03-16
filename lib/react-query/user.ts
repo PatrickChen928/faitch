@@ -3,7 +3,7 @@ import {
   useQuery,
   useMutation,
 } from "@tanstack/react-query";
-import { createUserAccount, getCurrentUser, getGetSelfByUsername, logout } from "../appwrite/user-service";
+import { createUserAccount, getCurrentUser, getGetSelfByUsername, logout, updateUserBio } from "../appwrite/user-service";
 import { QUERY_KEYS } from "./queryKeys";
 
 export const useCreateUserAccount = () => {
@@ -33,4 +33,8 @@ export const useGetSelfByUserName = (username: string) => {
   });
 };
 
-
+export const useUpdateUserBio = () => {
+  return useMutation({
+    mutationFn: (bio: string) => updateUserBio(bio),
+  });
+}

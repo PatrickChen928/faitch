@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import Header, { HeaderSkeleton } from "./Header";
 import InfoCard, { InfoCardSkeleton } from "./InfoCard";
+import AboutCard from "./AboutCard";
 
 interface StreamPlayerProps {
   user: IUser;
@@ -66,6 +67,13 @@ export default function StreamPlayer({
             name={stream?.name}
             thumbnailId={stream?.thumbnailId}
             thumbnailUrl={stream?.thumbnailUrl}
+          />
+          <AboutCard
+            hostName={user.name}
+            hostIdentity={user.$id}
+            viewerIdentity={identity}
+            bio={user.bio}
+            followedByCount={user.followedBy?.length || 0}
           />
         </div>
         <div className={cn(
