@@ -1,10 +1,10 @@
 "use client"
-import { useFollowedUsers, useGetUserByName, useIsFollowingUser } from "@/lib/react-query/follow";
+import { useGetUserByName, useIsFollowingUser } from "@/lib/react-query/follow";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
-import Actions from "./_components/actions";
 import { useIsBlockedUser } from "@/lib/react-query/block";
 import StreamPlayer from "@/components/stream-player";
+import Loading from "./loading";
 
 interface UserPageProps {
   params: {
@@ -26,7 +26,7 @@ export default function UserPage({ params }: UserPageProps) {
   }, [user]);
 
   if (isUserLoading || followingLoading || blockedLoading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (!user || (!blockedLoading && isBlockedUser)) {
