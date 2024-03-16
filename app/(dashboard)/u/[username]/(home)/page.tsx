@@ -27,7 +27,7 @@ export default function CreatorPage({ params }: CreatorPageProps) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-background">
       <StreamPlayer
         user={current!}
         stream={current?.stream}
