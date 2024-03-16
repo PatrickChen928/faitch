@@ -1,5 +1,5 @@
 import { Query } from "appwrite";
-import { RegisterProps } from "@/types";
+import { IUser, RegisterProps } from "@/types";
 import { account, appwriteConfig, avatars, database, ID } from ".";
 import { getRadomBgOfAvatar } from "@/lib/utils";
 
@@ -114,7 +114,7 @@ export const getUserByName = async (name: string) => {
     );
 
     if (!user) throw Error;
-    return user.documents[0];
+    return user.documents[0] as IUser;
   } catch (error) {
     return null;
   }

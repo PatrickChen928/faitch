@@ -2,10 +2,9 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { blockUser, isBlockedByUser, unblockUser } from "../appwrite/block-service";
 import { QUERY_KEYS } from "./queryKeys";
 
-export const useIsBlockedUser = (id: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.IS_BLOCKED_USER, id],
-    queryFn: () => isBlockedByUser(id),
+export const useIsBlockedUser = () => {
+  return useMutation({
+    mutationFn: (id: string) => isBlockedByUser(id),
   });
 }
 

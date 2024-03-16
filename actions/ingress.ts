@@ -72,3 +72,7 @@ export const resetIngress = async (hostIdentity: string) => {
     }
   }
 }
+
+export const removeParticipant = async (roomName: string, participantIdentity: string) => {
+  await roomService.removeParticipant(roomName, participantIdentity)
+}

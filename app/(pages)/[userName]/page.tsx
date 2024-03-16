@@ -3,6 +3,8 @@ import { useFollowedUsers, useGetUserByName, useIsFollowingUser } from "@/lib/re
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 import Actions from "./_components/actions";
+import { useIsBlockedUser } from "@/lib/react-query/block";
+import StreamPlayer from "@/components/stream-player";
 
 interface UserPageProps {
   params: {
@@ -13,31 +15,30 @@ interface UserPageProps {
 export default function UserPage({ params }: UserPageProps) {
 
   const { data: user, isLoading: isUserLoading } = useGetUserByName(params.username);
-
-  const { data: isFollowingUser, mutateAsync } = useIsFollowingUser();
+  const { data: isFollowingUser, mutateAsync: getIsFollowingUser, isPending: followingLoading } = useIsFollowingUser();
+  const { data: isBlockedUser, mutateAsync: getIsBlockedUser, isPending: blockedLoading } = useIsBlockedUser();
 
   useEffect(() => {
     if (user) {
-      mutateAsync(user.$id);
+      getIsFollowingUser(user.$id);
+      getIsBlockedUser(user.$id);
     }
   }, [user]);
 
-  if (isUserLoading) {
+  if (isUserLoading || followingLoading || blockedLoading) {
     return <div>Loading...</div>
   }
 
-
-  if (!user) {
+  if (!user || (!blockedLoading && isBlockedUser)) {
     notFound();
   }
 
+
   return (
-    <div className="flex flex-col gap-y-4">
-      {user.name}
-      {user.email}
-      <Actions isFollowing={!!isFollowingUser} userId={user.$id} onChange={() => {
-        mutateAsync(user.$id);
-      }} />
-    </div>
+    <StreamPlayer
+      user={user}
+      stream={user.stream}
+      isFollowing={isFollowingUser!}
+    />
   )
 }
