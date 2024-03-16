@@ -33,8 +33,8 @@ export const isBlockedByUser = async (id: string, selfId?: string) => {
       appwriteConfig.databaseId,
       appwriteConfig.blockCollectionId,
       [
-        Query.equal("blocker", otherUser.$id),
-        Query.equal("blockedBy", selfId)
+        Query.equal("blocked", selfId),
+        Query.equal("blocker", id)
       ]
     )
     return existingBlock.documents.length > 0
@@ -49,40 +49,44 @@ export const blockUser = async (id: string) => {
 
   if (self.$id === id) throw Error("Cannot block yourself")
 
-  const otherUser = await database.getDocument(
-    appwriteConfig.databaseId,
-    appwriteConfig.userCollectionId,
-    id
-  )
+  try {
+    const otherUser = await database.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      id
+    )
+
+    if (!otherUser) throw Error("User not found")
+
+    const existingBlock = await database.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.blockCollectionId,
+      [
+        Query.equal("blocked", self.$id),
+        Query.equal("blocker", id)
+      ]
+    )
+
+    if (existingBlock.documents.length > 0) throw Error("Already blocked")
+
+    await database.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.blockCollectionId,
+      ID.unique(),
+      {
+        blocked: self.$id,
+        blocker: id
+      }
+    )
+  } catch (e) { }
 
   try {
     await removeParticipant(self.$id, id)
   } catch (e) { }
 
-  if (!otherUser) throw Error("User not found")
 
-  const existingBlock = await database.listDocuments(
-    appwriteConfig.databaseId,
-    appwriteConfig.blockCollectionId,
-    [
-      Query.equal("blocker", otherUser.$id),
-      Query.equal("blockedBy", self.$id)
-    ]
-  )
 
-  if (existingBlock.documents.length > 0) throw Error("Already blocked")
-
-  const block = await database.createDocument(
-    appwriteConfig.databaseId,
-    appwriteConfig.blockCollectionId,
-    ID.unique(),
-    {
-      blocker: otherUser.$id,
-      blockedBy: self.$id
-    }
-  )
-
-  return block
+  return null
 }
 
 export const unblockUser = async (id: string) => {
@@ -103,8 +107,8 @@ export const unblockUser = async (id: string) => {
     appwriteConfig.databaseId,
     appwriteConfig.blockCollectionId,
     [
-      Query.equal("blocker", otherUser.$id),
-      Query.equal("blockedBy", self.$id)
+      Query.equal("blocked", self.$id),
+      Query.equal("blocker", id)
     ]
   )
 
@@ -117,4 +121,19 @@ export const unblockUser = async (id: string) => {
   )
 
   return res
+}
+
+export const getBlockedUsers = async () => {
+  const self = await getCurrentUser()
+  if (!self) throw Error("Unauthorized")
+
+  const blocks = await database.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.blockCollectionId,
+    [
+      Query.equal("blocked", self.$id)
+    ]
+  )
+
+  return blocks.documents;
 }

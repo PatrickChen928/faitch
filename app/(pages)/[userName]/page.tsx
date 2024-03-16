@@ -35,10 +35,13 @@ export default function UserPage({ params }: UserPageProps) {
 
 
   return (
-    <StreamPlayer
-      user={user}
-      stream={user.stream}
-      isFollowing={isFollowingUser!}
-    />
+    <>
+      {isBlockedUser}
+      <StreamPlayer
+        user={user}
+        stream={user.stream}
+        isFollowing={isFollowingUser!}
+      />
+    </>
   )
 }

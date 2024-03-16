@@ -15,4 +15,6 @@ export enum QUERY_KEYS {
   GET_FEED_STREAMS = "getFeedStreams",
 
   GET_SEARCH = "getSearch",
+
+  BLOCKED_USERS = "blockedUsers",
 }
