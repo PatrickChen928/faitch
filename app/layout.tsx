@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from '@vercel/analytics/react';
 import { Inter as FontSans } from "next/font/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -37,6 +38,7 @@ export default function RootLayout({
             <UserProvider>
               <Toaster theme="light" position="bottom-center" />
               {children}
+              <Analytics />
             </UserProvider>
           </ReactQueryProvider>
         </ThemeProvider>
