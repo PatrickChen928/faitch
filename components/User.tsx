@@ -45,12 +45,9 @@ export default function User() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          <div className="flex items-center gap-x-2">
-            {data.name} <ThemeBtn />
-          </div>
+          {data.name}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={() => handleMenuSelect('profile')}>Profile</DropdownMenuItem>
         <DropdownMenuItem onSelect={() => handleMenuSelect('logout')}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

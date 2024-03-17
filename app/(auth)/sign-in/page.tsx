@@ -1,9 +1,12 @@
 'use client'
 
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -16,12 +19,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { SignInValidation } from "@/lib/validation"
 import Loading from "@/components/Loading"
-import Link from "next/link"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { account } from "@/lib/appwrite"
+
 import Logo from "@/components/Logo"
 import { useUser } from "@/components/UserContext"
+import GithubLink from "@/components/GithubLink"
 
 export default function SignIn() {
   const { login } = useUser()
@@ -87,6 +88,9 @@ export default function SignIn() {
               Don't have an account? <Link href="/sign-up" className="text-primary-500 small-semibold ml-1">Sign up</Link>
             </p>
           </Form>
+          <div className="mt-2">
+            <GithubLink />
+          </div>
         </div>
       </div>
       <div className="relative hidden xl:block h-screen w-1/2">
